@@ -1,0 +1,40 @@
+# back
+.idea/
+.*_cache/
+__pycache__
+.pytest_cache
+.coverage
+venv/
+backend/.env
+docker/devlop/.env
+development_containers/.env
+development_containers/static
+backend/static/
+backend/static/admin/
+backend/cinema/static/videos/
+backend/cinema_subt/static/images/poster/
+media/
+postgres_data/
+
+
+# front
+# Исключаем node_modules, так как они создаются внутри контейнера
+node_modules/
+# Исключаем временные файлы и папки, созданные инструментами разработки
+dist/
+build/
+.cache/
+.vite/
+.vscode/
+.DS_Store
+*.log
+*.tmp
+*.swp
+*.swo
+# Исключаем файлы конфигурации окружения
+.env
+.env.local
+.env.development
+.env.production
+# Исключаем статические файлы, если они копируются отдельно
+static/
