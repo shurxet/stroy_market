@@ -6,42 +6,6 @@ from app.models.store import Store
 from app.schemas.product import ProductCreate, ProductUpdate
 
 
-# def create_product(db: Session, product: ProductCreate):
-#     db_product = Product(**product.dict(exclude={"shops"}))
-#     db.add(db_product)
-#     db.commit()
-#     db.refresh(db_product)
-#
-#     # Handle shops
-#     if product.shops:
-#         shops = db.query(Shop).filter(Shop.id.in_(product.shops)).all()
-#         db_product.shops.extend(shops)
-#         db.commit()
-#
-#     return db_product
-
-# def create_product(db: Session, product_data: ProductCreate) -> Product:
-#     # Создаём новый продукт
-#     new_product = Product(
-#         name=product_data.name,
-#         description=product_data.description,
-#         price=product_data.price,
-#         quantity=product_data.quantity,
-#         status=product_data.status,
-#         category_id=product_data.category_id
-#     )
-#
-#     # Добавляем магазины, если они есть в данных
-#     if product_data.shops:
-#         shops = db.query(Shop).filter(Shop.id.in_([shop.id for shop in product_data.shops])).all()
-#         new_product.shops.extend(shops)
-#
-#     # Сохраняем продукт в базе данных
-#     db.add(new_product)
-#     db.commit()
-#     db.refresh(new_product)
-#     return new_product
-
 def create_product(db: Session, product_data: ProductCreate) -> Product:
     # Создаём новый продукт
     new_product = Product(

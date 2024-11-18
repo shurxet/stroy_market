@@ -24,3 +24,11 @@ class Category(BaseModel):
 
     class Config:
         from_attributes = True  # В Pydantic V2 заменяем orm_mode
+
+
+class CategoryResponse(BaseModel):
+    id: int
+    name: str
+
+    class Config:
+        from_attributes = True  # В Pydantic V2 заменяем orm_mode
