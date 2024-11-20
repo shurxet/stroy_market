@@ -49,8 +49,8 @@
 ### 1. Клонирование репозитория:
 
 ```bash
-git clone https://github.com/shurxet/Stroy_Market.git
-cd Stroy_Market
+git clone https://github.com/shurxet/stroy_market.git
+cd stroy_market
 ```
 
 ---
@@ -112,7 +112,7 @@ DATABASE_URL: URL подключения к базе данных, исполь�
 
 
 ```bash
-docker-compose up --build
+docker-compose up -d --build
 ```
 
 После запуска:
@@ -133,7 +133,7 @@ docker-compose up --build
   ```
 - **Создание новой миграции**:
   ```bash
-  docker-compose run backend alembic revision --autogenerate -m "Ваше сообщение о миграции"
+  docker-compose run back alembic revision --autogenerate -m "Ваше сообщение о миграции"
   ```
 
 ---
@@ -145,6 +145,18 @@ docker-compose up --build
 - **GET /products**: Получить список продуктов.  
 - **POST /products**: Добавить продукт.  
 - **GET /products/{id}**: Получить продукт по ID.  
+- **PUT /products/{id}**: Обновить продукт по ID.
+- **DELETE /products/{id}**: Удалить продукт по ID.
+
+- **GET /categories**: Получить список категорий.  
+- **POST /categories**: Добавить категорию.  
+- **GET /categories/{id}**: Получить категорию по ID.  
+- **PUT /categories/{id}**: Обновить категорию по ID.
+
+- **GET /stores**: Получить список магазинов.  
+- **POST /stores**: Добавить магазин.  
+- **GET /stores/{id}**: Получить магазин по ID.  
+- **PUT /stores/{id}**: Обновить магазин по ID.
 
 ---
 
@@ -153,7 +165,7 @@ docker-compose up --build
 Тесты для бэкенда можно запускать с помощью Pytest:
 
 ```bash
-docker-compose run backend pytest
+docker-compose run back pytest
 ```
 
 ---
