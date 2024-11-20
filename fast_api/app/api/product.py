@@ -9,14 +9,8 @@ from app.core.database import get_db
 router = APIRouter()
 
 
-@router.post("/", response_model=Product)
-def create_product_endpoint(product: ProductCreate, db: Session = Depends(get_db)):
-    print(product)
-    return create_product(db=db, product_data=product)
-
-
 @router.get("/", response_model=List[Product])
-def read_products(
+def get_products(
     db: Session = Depends(get_db),
     skip: int = 0,
     limit: int = 100,
@@ -47,15 +41,21 @@ def read_products(
 
 
 @router.get("/{product_id}", response_model=Product)
-def read_product(product_id: int, db: Session = Depends(get_db)):
+def get_product(product_id: int, db: Session = Depends(get_db)):
     product = get_product(db=db, product_id=product_id)
     if product is None:
         raise HTTPException(status_code=404, detail="Product not found")
     return product
 
 
+@router.post("/", response_model=Product)
+def create_product(product: ProductCreate, db: Session = Depends(get_db)):
+    print(product)
+    return create_product(db=db, product_data=product)
+
+
 @router.put("/{product_id}", response_model=Product)
-def update_product_endpoint(product_id: int, product: ProductUpdate, db: Session = Depends(get_db)):
+def update_product(product_id: int, product: ProductUpdate, db: Session = Depends(get_db)):
     updated_product = update_product(db=db, product_id=product_id, product=product)
     if updated_product is None:
         raise HTTPException(status_code=404, detail="Product not found")
@@ -63,7 +63,7 @@ def update_product_endpoint(product_id: int, product: ProductUpdate, db: Session
 
 
 @router.delete("/{product_id}", response_model=Product)
-def delete_product_endpoint(product_id: int, db: Session = Depends(get_db)):
+def delete_product(product_id: int, db: Session = Depends(get_db)):
     deleted_product = delete_product(db=db, product_id=product_id)
     if deleted_product is None:
         raise HTTPException(status_code=404, detail="Product not found")

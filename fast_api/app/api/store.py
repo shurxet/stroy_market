@@ -1,20 +1,54 @@
 # fast_api/app/api/store.py
 from typing import List
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from app.crud import store as crud
-from app.schemas.store import Store, StoreCreate
+from app.schemas.store import Store, StoreCreate, StoreUpdate, StoreResponse
 from app.core.database import get_db
+
 
 router = APIRouter()
 
 
 @router.get("/", response_model=List[Store])
-def get_store(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    stores = crud.get_store(db, skip=skip, limit=limit)
+def get_stores(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    stores = crud.get_stores(db, skip=skip, limit=limit)
     return stores
+
+
+@router.get("/{store_id}", response_model=Store)
+def get_store(store_id: int, db: Session = Depends(get_db)):
+    response = crud.get_store(db=db, store_id=store_id)
+    return JSONResponse(
+        status_code=status.HTTP_200_OK,
+        content=StoreResponse.from_orm(response).dict()
+    )
 
 
 @router.post("/", response_model=Store)
 def create_store(store: StoreCreate, db: Session = Depends(get_db)):
-    return crud.create_store(db=db, store=store)
+    response = crud.create_store(db=db, store=store)\
+
+    return JSONResponse(
+        status_code=status.HTTP_201_CREATED,
+        content=StoreResponse.from_orm(response).dict()
+    )
+
+
+@router.put("/{store_id}", response_model=Store)
+def update_store(store_id: int, store: StoreUpdate, db: Session = Depends(get_db)):
+    response = crud.update_store(db=db, store_id=store_id, store=store)
+    return JSONResponse(
+        status_code=status.HTTP_200_OK,
+        content=StoreResponse.from_orm(response).dict()
+    )
+
+
+@router.delete("/{store_id}", response_model=Store)
+def delete_store(store_id: int, db: Session = Depends(get_db)):
+    crud.delete_store(db=db, store_id=store_id)
+
+    return JSONResponse(
+        status_code=status.HTTP_204_NO_CONTENT, content=None
+    )
