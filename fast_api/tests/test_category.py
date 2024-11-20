@@ -1,5 +1,5 @@
 # tests/test_category.py
-from .mock_fixtures import create_category_in_db, mock_categories_list
+from .mock_fixtures import create_category_in_db
 from .api_fixtures import client
 
 
@@ -11,6 +11,14 @@ def test_get_categories(client, create_category_in_db):
     assert response.status_code == 200
     categories = response.json()
     assert create_category_in_db.name in [category["name"] for category in categories]
+
+
+def test_get_category(client, create_category_in_db):
+    response = client.get(f"/categories/{create_category_in_db.id}")
+
+    assert response.status_code == 200
+    assert response.json()["name"] == create_category_in_db.name
+    assert response.json()["id"] == create_category_in_db.id
 
 
 def test_create_category(client, create_category_in_db):

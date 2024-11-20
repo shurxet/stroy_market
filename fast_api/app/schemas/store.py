@@ -18,3 +18,11 @@ class Store(StoreBase):
 
     class Config:
         from_attributes = True  # В Pydantic V2 заменяем orm_mode
+
+
+class StoreResponse(BaseModel):
+    id: int
+    name: str
+
+    class Config:
+        from_attributes = True  # В Pydantic V2 заменяем orm_mode

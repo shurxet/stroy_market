@@ -3,7 +3,9 @@ from typing import Type
 
 from sqlalchemy.orm import Session
 from app.models.store import Store
-from app.schemas.store import StoreCreate
+from app.schemas.store import StoreCreate, StoreResponse
+from fastapi.responses import JSONResponse
+from fastapi import status
 
 
 # CRUD для магазинов
@@ -24,4 +26,7 @@ def create_store(db: Session, store: StoreCreate):
     #     db_product.shops.extend(shops)
     #     db.commit()
 
-    return db_store
+    return JSONResponse(
+        status_code=status.HTTP_201_CREATED,
+        content=StoreResponse.from_orm(db_store).dict()
+    )
