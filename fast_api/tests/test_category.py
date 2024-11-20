@@ -4,10 +4,8 @@ from .api_fixtures import client
 
 
 def test_get_categories(client, create_category_in_db):
-    # Получаем список категорий через API
     response = client.get("/categories/")
 
-    # Проверка, что категория присутствует в списке
     assert response.status_code == 200
     categories = response.json()
     assert create_category_in_db.name in [category["name"] for category in categories]
@@ -22,13 +20,10 @@ def test_get_category(client, create_category_in_db):
 
 
 def test_create_category(client, create_category_in_db):
-    # Получаем данные созданной категории
     category = create_category_in_db
 
-    # Запрос на создание категории
     response = client.post("/categories/", json={"name": category.name})
 
-    # Проверка, что категория была успешно создана
     assert response.status_code == 201
     assert response.json()["name"] == category.name
 

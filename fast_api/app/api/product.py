@@ -50,7 +50,6 @@ def get_product(product_id: int, db: Session = Depends(get_db)):
 
 @router.post("/", response_model=Product)
 def create_product(product: ProductCreate, db: Session = Depends(get_db)):
-    print(product)
     return create_product(db=db, product_data=product)
 
 

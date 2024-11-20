@@ -14,10 +14,7 @@ router = APIRouter()
 def get_categories(skip: int = 0, limit: int = 20, db: Session = Depends(get_db)):
     response = crud.get_categories(db, skip=skip, limit=limit)
 
-    return JSONResponse(
-        status_code=status.HTTP_200_OK,
-        content=CategoryResponse.from_orm(response).dict()
-    )
+    return response
 
 
 @router.get("/{category_id}", response_model=Category)
