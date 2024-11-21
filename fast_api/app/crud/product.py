@@ -59,7 +59,9 @@ def update_product(db: Session, product_id: int, product: ProductUpdate):
 
 
 def get_product(db: Session, product_id: int):
-    return db.query(Product).filter(Product.id == product_id).first()
+    db_product = db.query(Product).filter(Product.id == product_id).first()
+
+    return db_product
 
 
 def get_products(

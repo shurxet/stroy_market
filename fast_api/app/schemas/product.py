@@ -39,3 +39,7 @@ class Product(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+class ProductResponse(Product):
+    pass
