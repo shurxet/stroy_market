@@ -61,36 +61,11 @@ def test_get_products(client, create_product_in_db):
 
 
 def test_create_product(client, dict_product_mock, object_product_mock):
-    # fake = Faker()
-    #
-    # # 1. Создаем данные для нового продукта
-    # category = create_category_in_db
-    # store = create_store_in_db
-    # product_data = {
-    #     "name": fake.unique.word(),
-    #     "description": fake.text(),
-    #     "price": round(fake.pyfloat(left_digits=3, right_digits=2, positive=True), 2),
-    #     "quantity": fake.random_int(min=1, max=100),
-    #     "status": fake.random_element(["в наличии", "нет в наличии"]),
-    #     "category_id": category.id,
-    #     "stores": [store.id],
-    # }
-    #
-    # # Преобразуем словарь в объект модели
-    # product_obj = Product(
-    #     name=product_data["name"],
-    #     description=product_data["description"],
-    #     price=product_data["price"],
-    #     quantity=product_data["quantity"],
-    #     status=product_data["status"],
-    #     category_id=product_data["category_id"],
-    # )
-    #
-    # product_obj.stores.append(store)
-
-    # 1. Отправляем POST-запрос для создания продукта
+    # 1. Запрос на создание продуктов через API
     response = client.post("/products/", json=dict_product_mock)
+
     assert response.status_code == 201, f"Failed to create product: {response.json()}"
+
     created_product = response.json()
 
     # 2. Проверяем, что данные продукта совпадают с отправленными
