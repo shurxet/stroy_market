@@ -1,4 +1,4 @@
-# tests/test_category.py
+# tests/test_product.py
 from .mock_fixtures import create_product_in_db
 from .api_fixtures import client
 
